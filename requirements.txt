@@ -1,11 +1,11 @@
-Django==5.1.15
+Django==5.2.17
 asgiref==3.12.1
 dj-database-url==2.3.0
 psycopg2-binary==2.9.13
 python-dotenv==1.2.3
 whitenoise==6.12.0
-crispy-bootstrap4==2024.10
-django-crispy-forms==2.3
+crispy-bootstrap4==2026.2
+django-crispy-forms==2.7
 Pillow==12.3.0
 cloudinary==1.46.2
 requests==2.34.2
