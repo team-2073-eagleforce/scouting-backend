@@ -61,8 +61,9 @@ def authorize(request):
                 access_type='offline',
                 include_granted_scopes='true')
 
-            # Store state in session to verify on callback
+            # Store state and PKCE code_verifier in session to verify/reuse on callback
             request.session['oauth_state'] = state
+            request.session['oauth_code_verifier'] = flow.code_verifier
 
             return redirect(authorization_url)
         finally:
@@ -82,12 +83,17 @@ def oauth2callback(request):
     if _DEBUG:
         os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
     flow = google_auth_oauthlib.flow.Flow.from_client_config(
-        client_config=client_config, scopes=SCOPES, state=expected_state)
+        client_config=client_config, scopes=SCOPES, state=expected_state,
+        code_verifier=request.session.get('oauth_code_verifier'))
     flow.redirect_uri = request.build_absolute_uri(reverse('oauth2callback'))
 
     # Use the authorization server's response to fetch the OAuth 2.0 tokens.
     authorization_response = request.build_absolute_uri()
     flow.fetch_token(authorization_response=authorization_response)
+
+    # Single-use values — clear now that the token exchange succeeded
+    request.session.pop('oauth_state', None)
+    request.session.pop('oauth_code_verifier', None)
 
     if _DEBUG:
         os.environ.pop('OAUTHLIB_INSECURE_TRANSPORT', None)

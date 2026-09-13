@@ -178,6 +178,23 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 SESSION_COOKIE_HTTPONLY = True
 CSRF_COOKIE_HTTPONLY = False  # Must be False so JS can read the token for AJAX requests
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['console'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+    },
+}
+
 # Security settings for production
 if not DEBUG:
     # Proxy SSL configuration - fixes OAuth redirect_uri_mismatch
