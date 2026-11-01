@@ -10,6 +10,7 @@ from strategy import views as strategy_views
 from authenticate import views as auth_views
 from authenticate import views_admin as admin_views
 from plugins import plugin_manager
+from replays.urls import ingest_urlpatterns as replay_ingest_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -41,6 +42,9 @@ urlpatterns = [
     path('api/tba_videos/', team_views.tba_videos, name='tba_videos'),
     # Machine ingest (stands machine scouting-sync, platform-kit psk-hmac auth)
     path('api/ingest/', include('ingest.urls')),
+    path('api/ingest/', include(replay_ingest_urls)),
+    # AI match replays (from the hub) + viewer
+    path('replays/', include('replays.urls')),
     path("auth/", include("authenticate.urls")),
     path('admin-panel/', admin_views.admin_panel, name='admin_panel'),
     path('admin-panel/add-user/', admin_views.add_user, name='add_user'),

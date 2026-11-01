@@ -82,6 +82,7 @@ INSTALLED_APPS = [
     'authenticate',
     'scanner',
     'ingest',
+    'replays',
 ]
 
 MIDDLEWARE = [
