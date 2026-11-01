@@ -81,6 +81,7 @@ INSTALLED_APPS = [
     'strategy',
     'authenticate',
     'scanner',
+    'ingest',
 ]
 
 MIDDLEWARE = [

@@ -39,6 +39,8 @@ urlpatterns = [
     path('api/team_info/<int:team_number>/', strategy_views.team_info, name='team_info'),
     path('api/toggle_exclude_match/', strategy_views.toggle_exclude_match, name='toggle_exclude_match'),
     path('api/tba_videos/', team_views.tba_videos, name='tba_videos'),
+    # Machine ingest (stands machine scouting-sync, platform-kit psk-hmac auth)
+    path('api/ingest/', include('ingest.urls')),
     path("auth/", include("authenticate.urls")),
     path('admin-panel/', admin_views.admin_panel, name='admin_panel'),
     path('admin-panel/add-user/', admin_views.add_user, name='add_user'),
